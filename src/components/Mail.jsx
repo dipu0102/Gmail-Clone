@@ -3,6 +3,8 @@ import { BiArchiveIn } from "react-icons/bi";
 import { IoMdArrowBack, IoMdMore } from "react-icons/io";
 import {
   MdDeleteOutline,
+  MdKeyboardArrowLeft,
+  MdKeyboardArrowRight,
   MdOutlineAddTask,
   MdOutlineDriveFileMove,
   MdOutlineMarkEmailUnread,
@@ -51,6 +53,38 @@ const Mail = () => {
             <IoMdMore size={"20px"} />
           </div>
         </div>
+        <div className="flex items-center gap-2">
+          <button
+            disabled={false}
+            className="hover:rounded-full hover:bg-gray-100"
+          >
+            <MdKeyboardArrowLeft size={"24px"} />
+          </button>
+          <button
+            disabled={false}
+            className="hover:rounded-full hover:bg-gray-100"
+          >
+            <MdKeyboardArrowRight size={"24px"} />
+          </button>
+        </div>
+      </div>
+      <div className="h-[90vh] overflow-y-auto p-4">
+        <div className="flex justify-between bg-white items-center gap-1">
+          <div className="flex items-center gap-2">
+            {/* <h1 className="text-xl font-medium">{selectedMail?.subject}</h1> */}
+            <span className="text-sm bg-gray-200 rounded-md px-2">inbox</span>
+          </div>
+          <div className="flex-none text-gray-400 my-5 text-sm">
+            <p>
+              {/* {new Date(selectedMail?.createdAt?.seconds * 1000).toUTCString()} */}
+            </p>
+          </div>
+        </div>
+        <div className="text-gray-500 text-sm">
+          {/* <h1>{selectedMail?.to}</h1> */}
+          <span>to me</span>
+        </div>
+        <div className="my-10">{/* <p>{selectedMail?.message}</p> */}</div>
       </div>
     </div>
   );

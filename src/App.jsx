@@ -6,6 +6,7 @@ import Mail from "./components/Mail";
 import Body from "./components/Body";
 import ErrorPage from "./components/ErrorPage";
 import NotFound from "./components/NotFound";
+import SendMail from "./components/SendMail";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,6 +34,9 @@ function App() {
       <div className="bg-[#F6F8FC] h-screen w-screen overflow-hidden">
         <Navbar />
         <RouterProvider router={router} />
+        <div className="absolute w-[30%] bottom-0 right-20 z-10">
+          <SendMail />
+        </div>
       </div>
     </>
   );
