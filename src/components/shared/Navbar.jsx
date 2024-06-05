@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { CiCircleQuestion } from "react-icons/ci";
 import { CiSettings } from "react-icons/ci";
 import { PiDotsNineBold } from "react-icons/pi";
 import Avatar from "react-avatar";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchText } from "../../redux/appSlice";
 const Navbar = () => {
+  const [search, setSearch] = useState("");
+  const [toggle, setToggle] = useState(false);
+  const dispatch = useDispatch();
+  const { authUser } = useSelector((store) => store.app);
+  useEffect(() => {
+    dispatch(setSearchText(search));
+  }, [search]);
   return (
     <>
       <div className="flex items-center justify-between mx-3 h-16">
@@ -27,6 +36,8 @@ const Navbar = () => {
             <IoIosSearch size={"24px"} className="text-gray-700" />
             <input
               type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="Search Mail"
               className="rounded-full w-full bg-transparent outline-none px-1"
             />

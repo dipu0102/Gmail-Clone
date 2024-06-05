@@ -4,7 +4,7 @@ import { RiStarLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { setSelectedMail } from "../redux/appSlice";
 import { useDispatch } from "react-redux";
-
+import { motion } from "framer-motion";
 const Message = ({ email }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,7 +14,10 @@ const Message = ({ email }) => {
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
       onClick={openMail}
       className=" flex items-center justify-between border-b border-gray-200 px-4 py-3 text-sm hover:cursor-pointer hover:shadow-md"
     >
@@ -39,7 +42,7 @@ const Message = ({ email }) => {
       <div className="flex-none text-gray-400 text-sm">
         <p>{new Date(email?.createdAt?.seconds * 1000).toUTCString()}</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
