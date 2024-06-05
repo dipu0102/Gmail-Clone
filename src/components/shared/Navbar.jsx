@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAuthUser, setSearchText } from "../../redux/appSlice";
 import { motion, AnimatePresence } from "framer-motion";
 import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const [toggle, setToggle] = useState(false);
