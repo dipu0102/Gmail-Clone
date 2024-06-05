@@ -6,12 +6,24 @@ import { CiSettings } from "react-icons/ci";
 import { PiDotsNineBold } from "react-icons/pi";
 import Avatar from "react-avatar";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchText } from "../../redux/appSlice";
+import { setAuthUser, setSearchText } from "../../redux/appSlice";
+import { motion, AnimatePresence } from "framer-motion";
+import { signOut } from "firebase/auth";
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const [toggle, setToggle] = useState(false);
   const dispatch = useDispatch();
   const { authUser } = useSelector((store) => store.app);
+
+  const signOutHandler = () => {
+    signOut(auth)
+      .then(() => {
+        dispatch(setAuthUser(null));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   useEffect(() => {
     dispatch(setSearchText(search));
   }, [search]);
@@ -54,12 +66,29 @@ const Navbar = () => {
             <div className="p-3 rounded-full hover:bg-gray-100 cursor-pointer ">
               <PiDotsNineBold size={"20px"} />
             </div>
-            <div className="cursor-pointer">
+            <div className="relative cursor-pointer">
               <Avatar
-                src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg"
+                onClick={() => setToggle(!toggle)}
+                src={authUser?.photoURL}
+                googleId="118096717852922241760"
                 size="40"
                 round={true}
               />
+              <AnimatePresence>
+                {toggle && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.1 }}
+                    className="absolute right-2 z-20 shadow-lg bg-white rounded-md"
+                  >
+                    <p onClick={signOutHandler} className="p-2 underline">
+                      LogOut
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>

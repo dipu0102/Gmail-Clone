@@ -16,7 +16,7 @@ import Loader from "./Loader";
 import { useSelector } from "react-redux";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
-
+import { motion } from "framer-motion";
 const Mail = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -31,7 +31,12 @@ const Mail = () => {
     }
   };
   return (
-    <div className="flex-1 bg-white rounded-xl mx-5">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex-1 bg-white rounded-xl mx-5"
+    >
       <div className="flex items-center justify-between px-4">
         <div className="flex items-center gap-2 text-gray-700 py-2">
           <div
@@ -103,7 +108,7 @@ const Mail = () => {
           <p>{selectedMail?.message}</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

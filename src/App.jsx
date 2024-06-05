@@ -7,6 +7,11 @@ import Body from "./components/Body";
 import ErrorPage from "./components/ErrorPage";
 import NotFound from "./components/NotFound";
 import SendMail from "./components/SendMail";
+import Login from "./components/Login";
+import { setAuthUser } from "./redux/appSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { auth } from "./firebase";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,14 +34,36 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
+  const { authUser } = useSelector((store) => store.app);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(
+          setAuthUser({
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+          })
+        );
+      }
+    });
+  }, []);
   return (
     <>
-      <div className="bg-[#F6F8FC] h-screen w-screen overflow-hidden">
-        <Navbar />
-        <RouterProvider router={router} />
-        <div className="absolute w-[30%] bottom-0 right-20 z-10">
-          <SendMail />
-        </div>
+      <div className="bg-[#F6F8FC] w-screen h-screen overflow-hidden">
+        {!authUser ? (
+          <Login />
+        ) : (
+          <>
+            <Navbar />
+            <RouterProvider router={router} />
+            <div className="absolute w-[30%] bottom-0 right-20 z-10">
+              <SendMail />
+            </div>
+          </>
+        )}
       </div>
     </>
   );
