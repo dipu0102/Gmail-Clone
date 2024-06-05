@@ -2,12 +2,17 @@ import React from "react";
 import { MdCropSquare } from "react-icons/md";
 import { RiStarLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { setSelectedMail } from "../redux/appSlice";
+import { useDispatch } from "react-redux";
 
-const Message = () => {
+const Message = ({ email }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const openMail = () => {
-    navigate("mail/1234");
+    dispatch(setSelectedMail(email));
+    navigate(`/mail/${email.id}`);
   };
+
   return (
     <div
       onClick={openMail}
@@ -20,15 +25,20 @@ const Message = () => {
         <div className="flex-none text-gray-300">
           <RiStarLine className="w-5 h-5" />
         </div>
+        <div>
+          <h1 className="font-semibold">{email?.to}</h1>
+        </div>
       </div>
       <div className="flex-1 ml-4">
-        <p className="text-gray-600 truncate inline-block  max-w-full">
-          {" "}
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
-        </p>
+        <p className="text-gray-600 truncate inline-block max-w-full">{`${
+          email.message.length > 130
+            ? `${email?.message.substring(0, 130)}...`
+            : email.message
+        }`}</p>
       </div>
-      <div className="flex-none text-gray-400 text-sm">time hobe</div>
+      <div className="flex-none text-gray-400 text-sm">
+        <p>{new Date(email?.createdAt?.seconds * 1000).toUTCString()}</p>
+      </div>
     </div>
   );
 };

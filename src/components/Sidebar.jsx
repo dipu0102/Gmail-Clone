@@ -52,7 +52,10 @@ const Sidebar = () => {
       <div className="text-gray-500">
         {sidebarItems.map((item, index) => {
           return (
-            <div className="flex items-center gap-4 pl-6 py-1 rounded-r-full hover:cursor-pointer hover:bg-gray-200 my-2 select-none">
+            <div
+              className="flex items-center gap-4 pl-6 py-1 rounded-r-full hover:cursor-pointer hover:bg-gray-200 my-2 select-none"
+              key={index}
+            >
               {item.icon}
               <p>{item.text}</p>
             </div>
