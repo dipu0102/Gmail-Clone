@@ -15,6 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loader from "./Loader";
 import { useSelector } from "react-redux";
 import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Mail = () => {
   const params = useParams();
